@@ -33,12 +33,12 @@ class CharacterFragment() : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         characterViewModel = ViewModelProviders.of(this, viewModelFactory).get(CharacterViewModel::class.java)
-        characterAdapter = CharacterAdapter(emptyList())
+        characterAdapter = CharacterAdapter()
         characterList.layoutManager = LinearLayoutManager(context)
         characterList.adapter = characterAdapter
         characterViewModel.loadCharacter().observe(this, Observer {
             if (it != null && it.size > 0) {
-                characterAdapter.addItem(it)
+                characterAdapter.submitList(it)
             }
         })
     }
