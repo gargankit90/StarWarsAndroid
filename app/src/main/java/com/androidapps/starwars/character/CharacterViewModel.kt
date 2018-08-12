@@ -14,14 +14,14 @@ import io.reactivex.disposables.CompositeDisposable
 
 
 class CharacterViewModel @Inject constructor(
-        val characterRepository: CharacterRepository) : ViewModel() {
+        val characterRepositoryImpl: CharacterRepositoryImpl) : ViewModel() {
 
     var charactersLiveData: MutableLiveData<List<Character>> = MutableLiveData()
     private val disposables = CompositeDisposable()
 
     fun loadCharacter(): MutableLiveData<List<Character>> {
         disposables.add(
-                characterRepository.loadCharacters()
+                characterRepositoryImpl.loadCharacters()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe() {
