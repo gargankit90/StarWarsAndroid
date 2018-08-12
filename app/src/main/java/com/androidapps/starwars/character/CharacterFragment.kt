@@ -1,5 +1,6 @@
 package com.androidapps.starwars.character
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -35,7 +36,12 @@ class CharacterFragment() : Fragment(), Injectable {
         characterAdapter = CharacterAdapter(emptyList())
         characterList.layoutManager = LinearLayoutManager(context)
         characterList.adapter = characterAdapter
-        characterViewModel.loadCharacter()
+        characterViewModel.loadCharacter().observe(this, Observer {
+            if (it != null && it.size > 0) {
+                characterAdapter.characterList = it
+                characterAdapter.notifyDataSetChanged()
+            }
+        })
     }
 
     companion object {

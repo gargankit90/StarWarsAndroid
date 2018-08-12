@@ -3,7 +3,7 @@ package com.androidapps.starwars.character
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
-import com.androidapps.starwars.shared.AbstractViewModel
+import android.arch.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -14,16 +14,17 @@ import javax.inject.Inject
 
 
 class CharacterViewModel @Inject constructor(
-        val applicationContext:Application,
+        val applicationContext: Application,
         val characterRepository: CharacterRepository) : AndroidViewModel(applicationContext) {
-        var characters: List<Character> = emptyList()
-    fun loadCharacter(): List<Character> {
+    var charactersLiveData: MutableLiveData<List<Character>> = MutableLiveData()
+
+    fun loadCharacter(): MutableLiveData<List<Character>> {
         characterRepository.loadCharacters()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe() {
-                    characters = it.characterList
+                    charactersLiveData.value = it.characterList
                 }
-        return characters
+        return charactersLiveData
     }
 }

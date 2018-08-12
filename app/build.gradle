@@ -43,6 +43,10 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$rootProject.ext.daggerVersion"
 
+    // Add LifeCycle dependencies.
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation "android.arch.lifecycle:viewmodel:1.1.1"
+
     // Add Room dependencies
     implementation "android.arch.persistence.room:runtime:$rootProject.ext.roomVersion"
     kapt "android.arch.persistence.room:compiler:$rootProject.ext.roomVersion"
