@@ -22,4 +22,9 @@ class CharacterAdapter(var characterList: List<Character>): RecyclerView.Adapter
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         holder.bind(characterList.get(position))
     }
+
+    fun addItem(characterList: List<Character>) {
+        this.characterList = characterList
+        notifyDataSetChanged()
+    }
 }

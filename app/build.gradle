@@ -47,6 +47,12 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:1.1.1"
     implementation "android.arch.lifecycle:viewmodel:1.1.1"
 
+    // Add Recyclerview
+    implementation "com.android.support:recyclerview-v7:$rootProject.ext.androidSdkVersion"
+
+    // Add CardView
+    implementation "com.android.support:cardview-v7:$rootProject.ext.androidSdkVersion"
+
     // Add Room dependencies
     implementation "android.arch.persistence.room:runtime:$rootProject.ext.roomVersion"
     kapt "android.arch.persistence.room:compiler:$rootProject.ext.roomVersion"
@@ -66,6 +72,9 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofitVersion"
     // Add okhttp logger
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okHttpVersion"
+
+    // Add Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

@@ -38,8 +38,7 @@ class CharacterFragment() : Fragment(), Injectable {
         characterList.adapter = characterAdapter
         characterViewModel.loadCharacter().observe(this, Observer {
             if (it != null && it.size > 0) {
-                characterAdapter.characterList = it
-                characterAdapter.notifyDataSetChanged()
+                characterAdapter.addItem(it)
             }
         })
     }
