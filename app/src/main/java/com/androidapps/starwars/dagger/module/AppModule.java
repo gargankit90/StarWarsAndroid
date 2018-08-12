@@ -20,6 +20,9 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.androidapps.starwars.shared.ConstantKt.DATABASE_NAME;
+import static com.androidapps.starwars.shared.ConstantKt.REST_URL;
+
 @Module(includes = ViewModelModule.class)
 public class AppModule {
     @Provides
@@ -50,7 +53,7 @@ public class AppModule {
     CharacterApi provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl("https://swapi.co/api/")
+                .baseUrl(REST_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
                 .create(CharacterApi.class);
@@ -59,7 +62,7 @@ public class AppModule {
     @Singleton
     @Provides
     StarWarsDb provideDb(Application app) {
-        return Room.databaseBuilder(app, StarWarsDb.class, "StarWars").build();
+        return Room.databaseBuilder(app, StarWarsDb.class, DATABASE_NAME).build();
     }
 
     @Singleton
