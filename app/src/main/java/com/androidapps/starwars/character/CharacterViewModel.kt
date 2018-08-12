@@ -1,9 +1,7 @@
 package com.androidapps.starwars.character
 
-import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -14,10 +12,11 @@ import javax.inject.Inject
 
 
 class CharacterViewModel @Inject constructor(
-        val applicationContext: Application,
-        val characterRepository: CharacterRepository) : AndroidViewModel(applicationContext) {
+        val characterRepository: CharacterRepository) : ViewModel() {
+
     var charactersLiveData: MutableLiveData<List<Character>> = MutableLiveData()
 
+    // TODO: Add composite disposables and clear the observables when viewmodel is cleared
     fun loadCharacter(): MutableLiveData<List<Character>> {
         characterRepository.loadCharacters()
                 .subscribeOn(Schedulers.io())
