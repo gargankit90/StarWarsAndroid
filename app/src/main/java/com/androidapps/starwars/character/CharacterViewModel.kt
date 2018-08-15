@@ -1,11 +1,11 @@
 package com.androidapps.starwars.character
 
-import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
+import android.arch.paging.LivePagedListBuilder
+import android.arch.paging.PagedList
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
 
 /**
@@ -16,18 +16,18 @@ import io.reactivex.disposables.CompositeDisposable
 class CharacterViewModel @Inject constructor(
         val characterRepositoryImpl: CharacterRepositoryImpl) : ViewModel() {
 
-    var charactersLiveData: MutableLiveData<List<Character>> = MutableLiveData()
+    var charactersLiveData: LiveData<PagedList<Character>>
+    private val sourceFactory: CharacterDataSourceFactory
     private val disposables = CompositeDisposable()
 
-    fun loadCharacter(): MutableLiveData<List<Character>> {
-        disposables.add(
-                characterRepositoryImpl.loadCharacters()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe() {
-                            charactersLiveData.value = it.characterList
-                        })
-        return charactersLiveData
+
+    init {
+        sourceFactory = CharacterDataSourceFactory(disposables, characterRepositoryImpl.characterApi)
+        val config = PagedList.Config.Builder()
+                .setPageSize(10)
+                .setEnablePlaceholders(false)
+                .build()
+        charactersLiveData = LivePagedListBuilder<Int, Character>(sourceFactory, config).build()
     }
 
     override fun onCleared() {

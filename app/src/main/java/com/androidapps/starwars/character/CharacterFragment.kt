@@ -3,6 +3,7 @@ package com.androidapps.starwars.character
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.arch.paging.PagedList
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -36,11 +37,7 @@ class CharacterFragment() : Fragment(), Injectable {
         characterAdapter = CharacterAdapter()
         characterList.layoutManager = LinearLayoutManager(context)
         characterList.adapter = characterAdapter
-        characterViewModel.loadCharacter().observe(this, Observer {
-            if (it != null && it.size > 0) {
-                characterAdapter.submitList(it)
-            }
-        })
+        characterViewModel.charactersLiveData.observe(this, Observer<PagedList<Character>> {characterAdapter.submitList(it)})
     }
 
     companion object {

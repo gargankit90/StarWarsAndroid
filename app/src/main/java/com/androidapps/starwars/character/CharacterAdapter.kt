@@ -1,5 +1,6 @@
 package com.androidapps.starwars.character
 
+import android.arch.paging.PagedListAdapter
 import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.util.DiffUtil
 import android.view.LayoutInflater
@@ -10,7 +11,7 @@ import com.androidapps.starwars.R
  * Created by ankit on 8/11/18.
  */
 
-class CharacterAdapter(): ListAdapter<Character, CharacterViewHolder>(
+class CharacterAdapter(): PagedListAdapter<Character, CharacterViewHolder>(
         object: DiffUtil.ItemCallback<Character>() {
             override fun areItemsTheSame(oldItem: Character, newItem: Character) = oldItem.name == newItem.name
 
@@ -24,6 +25,6 @@ class CharacterAdapter(): ListAdapter<Character, CharacterViewHolder>(
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position)?:Character())
     }
 }

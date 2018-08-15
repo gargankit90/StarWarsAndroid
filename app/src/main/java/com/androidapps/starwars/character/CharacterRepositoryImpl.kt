@@ -17,7 +17,7 @@ class CharacterRepositoryImpl @Inject constructor(
         val starWarsDb: StarWarsDb) : CharacterRepository {
 
     override fun loadCharacters(): Observable<AllCharacterResponse> {
-        return characterApi.getAllCharacters()
+        return characterApi.getAllCharacters(1.toString())
     }
 }
 
