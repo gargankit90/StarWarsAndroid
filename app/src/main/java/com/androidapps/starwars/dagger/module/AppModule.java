@@ -3,8 +3,10 @@ package com.androidapps.starwars.dagger.module;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 
+import com.androidapps.starwars.character.Character;
 import com.androidapps.starwars.character.CharacterApi;
 import com.androidapps.starwars.character.CharacterDao;
+import com.androidapps.starwars.character.CharacterDeserializer;
 import com.androidapps.starwars.shared.StarWarsDb;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -36,6 +38,7 @@ public class AppModule {
     @Singleton
     Gson provideGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Character.class, new CharacterDeserializer());
         gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
         return gsonBuilder.create();
     }
