@@ -1,7 +1,10 @@
 package com.androidapps.starwars.character
 
+import android.arch.lifecycle.LiveData
+import android.arch.paging.LivePagedListBuilder
+import android.arch.paging.PagedList
 import com.androidapps.starwars.shared.StarWarsDb
-import io.reactivex.Observable
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -14,13 +17,22 @@ import javax.inject.Singleton
 class CharacterRepositoryImpl @Inject constructor(
         val characterApi: CharacterApi,
         val characterDao: CharacterDao,
-        val starWarsDb: StarWarsDb) : CharacterRepository {
+        val starWarsDb: StarWarsDb,
+        val compositeDisposable: CompositeDisposable) : CharacterRepository {
 
-    override fun loadCharacters(): Observable<AllCharacterResponse> {
-        return characterApi.getAllCharacters(1.toString())
+    override fun loadCharacters(): LiveData<PagedList<Character>> {
+        val sourceFactory = characterDao.getAllCharacters()
+        val boundaryCallback = CharacterBoundaryCallback(characterApi, this@CharacterRepositoryImpl, compositeDisposable)
+        val config = PagedList.Config.Builder()
+                .setPageSize(10)
+                .setEnablePlaceholders(false)
+                .build()
+        return LivePagedListBuilder<Int, Character>(sourceFactory, config)
+                .setBoundaryCallback(boundaryCallback)
+                .build()
     }
 }
 
 interface CharacterRepository {
-    fun loadCharacters(): Observable<AllCharacterResponse>
+    fun loadCharacters(): LiveData<PagedList<Character>>
 }

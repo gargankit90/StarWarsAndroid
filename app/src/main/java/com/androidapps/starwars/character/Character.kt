@@ -53,7 +53,7 @@ data class Character(
         set(value) {
             if (value != "") {
                 val arrayOfPath = value.split("/")
-                if (arrayOfPath.size > 0) {
+                if (arrayOfPath.size > 1) {
                     // url is "https://swapi.co/api/people/1/"
                     // second last element would be the id.
                     field = arrayOfPath[arrayOfPath.size - 2]

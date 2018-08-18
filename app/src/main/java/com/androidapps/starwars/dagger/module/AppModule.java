@@ -8,6 +8,7 @@ import com.androidapps.starwars.character.CharacterApi;
 import com.androidapps.starwars.character.CharacterDao;
 import com.androidapps.starwars.character.CharacterDeserializer;
 import com.androidapps.starwars.shared.StarWarsDb;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,6 +48,7 @@ public class AppModule {
     @Singleton
     OkHttpClient provideOkhttpClient(Cache cache) {
         OkHttpClient.Builder client = new OkHttpClient.Builder();
+        client.addNetworkInterceptor(new StethoInterceptor());
         client.cache(cache);
         return client.build();
     }
@@ -55,6 +57,7 @@ public class AppModule {
     @Singleton
     CharacterApi provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .baseUrl(REST_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

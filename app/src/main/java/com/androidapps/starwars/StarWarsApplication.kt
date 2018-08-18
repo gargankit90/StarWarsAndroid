@@ -3,6 +3,7 @@ package com.androidapps.starwars
 import android.app.Activity
 import android.app.Application
 import com.androidapps.starwars.dagger.utility.AppInjector
+import com.facebook.stetho.Stetho
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -24,5 +25,7 @@ class StarWarsApplication:Application(), HasActivityInjector {
         super.onCreate()
         // Start dependency injection
         AppInjector.init(this)
+        // Init Stetho
+        Stetho.initializeWithDefaults(this);
     }
 }

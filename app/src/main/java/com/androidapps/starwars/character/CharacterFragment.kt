@@ -37,7 +37,8 @@ class CharacterFragment() : Fragment(), Injectable {
         characterAdapter = CharacterAdapter()
         characterList.layoutManager = LinearLayoutManager(context)
         characterList.adapter = characterAdapter
-        characterViewModel.charactersLiveData.observe(this, Observer<PagedList<Character>> {characterAdapter.submitList(it)})
+        characterViewModel.loadCharacters()
+        characterViewModel.getCharactersLiveData().observe(this, Observer<PagedList<Character>> {characterAdapter.submitList(it)})
     }
 
     companion object {
