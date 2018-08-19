@@ -17,6 +17,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -75,6 +76,12 @@ public class AppModule {
     @Provides
     CharacterDao provideCharacterDao(StarWarsDb db) {
         return db.characterDao();
+    }
+
+    @Singleton
+    @Provides
+    CompositeDisposable provideCompositeDisposable() {
+        return new CompositeDisposable();
     }
 
 }
