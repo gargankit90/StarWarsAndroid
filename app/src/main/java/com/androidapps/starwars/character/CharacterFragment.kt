@@ -15,15 +15,11 @@ import com.androidapps.starwars.dagger.utility.Injectable
 import kotlinx.android.synthetic.main.fragment_character.*
 import javax.inject.Inject
 
-class CharacterFragment() : Fragment(), Injectable {
+class CharacterFragment : Fragment(), Injectable {
     private lateinit var characterAdapter: CharacterAdapter
     private lateinit var characterViewModel: CharacterViewModel
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -38,7 +34,9 @@ class CharacterFragment() : Fragment(), Injectable {
         characterList.layoutManager = LinearLayoutManager(context)
         characterList.adapter = characterAdapter
         characterViewModel.loadCharacters()
-        characterViewModel.getCharactersLiveData().observe(this, Observer<PagedList<Character>> {characterAdapter.submitList(it)})
+        characterViewModel.getCharactersLiveData()
+                .observe(this,
+                        Observer<PagedList<Character>> { characterAdapter.submitList(it) })
     }
 
     companion object {

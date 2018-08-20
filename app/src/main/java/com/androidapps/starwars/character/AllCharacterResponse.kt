@@ -13,12 +13,12 @@ public data class AllCharacterResponse(
         val count: kotlin.Int,
         @SerializedName("next")
         @Expose
-        val next:String,
+        val next: String,
         @SerializedName("previous")
         @Expose
-        val previous:Any,
+        val previous: Any,
         @SerializedName("results")
         @Expose
-        val characterList:List<Character>)
+        val characterList: List<Character>)
 
 

@@ -13,13 +13,13 @@ import javax.inject.Inject
 
 
 class CharacterViewModel @Inject constructor(
-        val characterRepositoryImpl: CharacterRepositoryImpl,
-        val compositeDisposable: CompositeDisposable) : ViewModel() {
+        val characterRepositoryImpl: CharacterRepositoryImpl) : ViewModel() {
 
     private lateinit var charactersLiveData: LiveData<PagedList<Character>>
+    private val compositeDisposable:CompositeDisposable = CompositeDisposable()
 
     fun loadCharacters() {
-        charactersLiveData = characterRepositoryImpl.loadCharacters()
+        charactersLiveData = characterRepositoryImpl.loadCharacters(compositeDisposable)
     }
 
     fun getCharactersLiveData() = charactersLiveData

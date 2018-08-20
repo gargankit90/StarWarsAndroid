@@ -78,10 +78,4 @@ public class AppModule {
         return db.characterDao();
     }
 
-    @Singleton
-    @Provides
-    CompositeDisposable provideCompositeDisposable() {
-        return new CompositeDisposable();
-    }
-
 }

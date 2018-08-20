@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.androidapps.starwars.R
+import com.androidapps.starwars.shared.CHARCTER_IMAGE_URL
 import com.squareup.picasso.Picasso
 
 /**
@@ -21,9 +22,22 @@ class CharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         characterName.text = character.name
         characterHeight.text = character.height
         characterBirthYear.text = character.birthYear
-        var urlImage:String = "https://starwars-visualguide.com/assets/img/characters/" +character.url.split("/")[5] +".jpg"
+        val urlImage:String = CHARCTER_IMAGE_URL + getImagePath(character.url)
         // TODO: Add placeholder and error images
         Picasso.get().load(urlImage).into(characterImage)
     }
 
+    fun getImagePath(url:String): String {
+        // This is how URL looks
+        // "https://swapi.co/api/people/1/"
+        // We need to extract id from URL
+        // Image Url looks like this
+        // https://starwars-visualguide.com/assets/img/characters/1.jpg
+        val pathArray = url.split("/")
+        var imagePath:String = ""
+        if (pathArray.size > 5) {
+            imagePath = pathArray[5] + ".jpg"
+        }
+        return imagePath
+    }
 }

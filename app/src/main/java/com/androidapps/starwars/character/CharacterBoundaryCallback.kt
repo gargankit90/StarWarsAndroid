@@ -42,20 +42,18 @@ class CharacterBoundaryCallback(
         }
         compositeDisposable.add(characterApi.getAllCharacters(lastRequestedPage.toString())
                 .subscribeOn(Schedulers.io())
-                .doOnNext {
+                .subscribe {
                     characterRepository.characterDao.insertListOfCharacters(it.characterList)
                     if (it.next != null) {
                         val indexOfEqual = it.next.indexOf("=")
                         if (indexOfEqual > 0) {
                             // url is "https://swapi.co/api/people/1/"
                             // second last element would be the id.
-                            lastRequestedPage = it.next.substring(indexOfEqual+1, it.next.length).toInt()
+                            lastRequestedPage = it.next.substring(indexOfEqual + 1, it.next.length).toInt()
                         } else {
                             lastRequestedPage = -1;
                         }
                     }
-
-                }
-                .subscribe())
+                })
     }
 }

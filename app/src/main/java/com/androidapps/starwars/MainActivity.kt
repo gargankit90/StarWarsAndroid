@@ -8,14 +8,11 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.androidapps.starwars.character.CharacterFragment
 import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_toolbar.*
-import dagger.android.DispatchingAndroidInjector
 import javax.inject.Inject
-
-
-
 
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     @Inject

@@ -17,10 +17,9 @@ import javax.inject.Singleton
 class CharacterRepositoryImpl @Inject constructor(
         val characterApi: CharacterApi,
         val characterDao: CharacterDao,
-        val starWarsDb: StarWarsDb,
-        val compositeDisposable: CompositeDisposable) : CharacterRepository {
+        val starWarsDb: StarWarsDb) : CharacterRepository {
 
-    override fun loadCharacters(): LiveData<PagedList<Character>> {
+    override fun loadCharacters(compositeDisposable: CompositeDisposable): LiveData<PagedList<Character>> {
         val sourceFactory = characterDao.getAllCharacters()
         val boundaryCallback = CharacterBoundaryCallback(characterApi, this@CharacterRepositoryImpl, compositeDisposable)
         val config = PagedList.Config.Builder()
@@ -34,5 +33,5 @@ class CharacterRepositoryImpl @Inject constructor(
 }
 
 interface CharacterRepository {
-    fun loadCharacters(): LiveData<PagedList<Character>>
+    fun loadCharacters(compositeDisposable: CompositeDisposable): LiveData<PagedList<Character>>
 }

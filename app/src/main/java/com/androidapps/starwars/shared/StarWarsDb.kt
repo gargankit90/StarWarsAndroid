@@ -10,7 +10,7 @@ import com.androidapps.starwars.character.CharacterDao
  * Created by ankit on 8/11/18.
  */
 
-@Database(entities = arrayOf(Character::class), version = 1)
+@Database(entities = [Character::class], version = 1)
 abstract class StarWarsDb : RoomDatabase() {
     abstract fun characterDao(): CharacterDao
 }
