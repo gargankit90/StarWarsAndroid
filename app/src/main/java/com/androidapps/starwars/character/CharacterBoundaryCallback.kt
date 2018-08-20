@@ -51,7 +51,7 @@ class CharacterBoundaryCallback(
                             // second last element would be the id.
                             lastRequestedPage = it.next.substring(indexOfEqual + 1, it.next.length).toInt()
                         } else {
-                            lastRequestedPage = -1;
+                            lastRequestedPage = -1
                         }
                     }
                 })

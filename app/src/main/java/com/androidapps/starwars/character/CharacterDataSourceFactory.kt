@@ -11,7 +11,7 @@ class CharacterDataSourceFactory(private val compositeDisposable: CompositeDispo
                                  private val characterApi: CharacterApi)
     : DataSource.Factory<kotlin.Int, Character>() {
 
-    val characterDataSourceLiveData = MutableLiveData<CharacterDataSource>()
+    private val characterDataSourceLiveData = MutableLiveData<CharacterDataSource>()
 
     override fun create(): DataSource<kotlin.Int, Character> {
         val usersDataSource = CharacterDataSource(characterApi, compositeDisposable)

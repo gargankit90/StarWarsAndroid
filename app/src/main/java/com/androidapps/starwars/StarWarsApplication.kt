@@ -26,6 +26,6 @@ class StarWarsApplication:Application(), HasActivityInjector {
         // Start dependency injection
         AppInjector.init(this)
         // Init Stetho
-        Stetho.initializeWithDefaults(this);
+        Stetho.initializeWithDefaults(this)
     }
 }

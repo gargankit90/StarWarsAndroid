@@ -34,7 +34,7 @@ class CharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // Image Url looks like this
         // https://starwars-visualguide.com/assets/img/characters/1.jpg
         val pathArray = url.split("/")
-        var imagePath:String = ""
+        var imagePath = ""
         if (pathArray.size > 5) {
             imagePath = pathArray[5] + ".jpg"
         }

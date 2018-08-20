@@ -14,7 +14,7 @@ class CharacterDataSource(private val characterApi: CharacterApi,
 
     override fun loadAfter(params: LoadParams<kotlin.Int>, callback: LoadCallback<kotlin.Int, Character>) {
         compositeDisposable.add(characterApi.getAllCharacters(params.key.toString()).subscribe({characters ->
-            var key:Int?
+            val key:Int?
             if(characters.next == null) {
                 key = null
             } else {
@@ -28,8 +28,8 @@ class CharacterDataSource(private val characterApi: CharacterApi,
     }
 
     private fun getPageNumber(data:String):Int {
-        var listOfString = data.split("/")
-        var lastString = listOfString.get(listOfString.size - 1)
+        val listOfString = data.split("/")
+        var lastString = listOfString[listOfString.size - 1]
         lastString = lastString.subSequence(lastString.indexOf("=")+1, lastString.length).toString()
         return lastString.toInt()
     }
